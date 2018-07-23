@@ -60,7 +60,7 @@ export class ProgressCircle extends Component {
     this.progressValue = 0;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.animated) {
       this.props.progress.addListener(event => {
         this.progressValue = event.value;
@@ -91,6 +91,7 @@ export class ProgressCircle extends Component {
       thickness,
       unfilledColor,
       endAngle,
+      resizeMode,
       ...restProps
     } = this.props;
 

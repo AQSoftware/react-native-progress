@@ -54,9 +54,9 @@ export default function withAnimation(WrappedComponent, indeterminateProgress) {
       this.state.rotation.removeAllListeners();
     }
 
-    componentWillReceiveProps(props) {
-      if (props.indeterminate !== this.props.indeterminate) {
-        if (props.indeterminate) {
+    componentDidUpdate(prevProps, prevState) {
+      if (this.props.indeterminate !== prevProps.indeterminate) {
+        if (this.props.indeterminate) {
           this.spin();
         } else {
           Animated.spring(this.state.rotation, {
@@ -68,11 +68,11 @@ export default function withAnimation(WrappedComponent, indeterminateProgress) {
           });
         }
       }
-      const progress = props.indeterminate
+      const progress = this.props.indeterminate
         ? indeterminateProgress || 0
-        : Math.min(Math.max(props.progress, 0), 1);
+        : Math.min(Math.max(this.props.progress, 0), 1);
       if (progress !== this.progressValue) {
-        if (props.animated) {
+        if (this.props.animated) {
           Animated.spring(this.state.progress, {
             toValue: progress,
             bounciness: 0,
